@@ -50,14 +50,14 @@ foreach ($list as $lt)
 ?>
 
 			</tbody>
-			<!-- <tfoot>
+			<tfoot>
 				<tr>
-					<th colspan="5"><?php echo $pagination;?></th>
+                    <th colspan="5"><?php echo $pagination;?></th>
 				</tr>
-			</tfoot> -->
+			</tfoot>
 		</table>
-		<!-- <div><p><a href="/bbs/board/write/<?php echo $this->uri->segment(3);?>/page/<?php echo $this->uri->segment(5);?>" class="btn btn-success">쓰기</a></p></div>
-		<div> -->
+		<div><p><a href="/bbs/board/write/<?php echo $this->uri->segment(3);?>/page/<?php echo $this->uri->segment(5);?>" class="btn btn-success">쓰기</a></p></div>
+		<div>
 <!-- <?php
 			echo form_open('bbs/board/lists/ci_board', array('id'=>'bd_search', 'class'=>'well form-search'));
 ?> -->

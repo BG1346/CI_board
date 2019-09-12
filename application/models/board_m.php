@@ -25,52 +25,54 @@ class Board_m extends CI_Model
 	 * @return array
 	 */
 
-    function get_list($table='ci_board'){
-        $sql = "SELECT * FROM " . $table . " ORDER BY board_id ASC";
-        $query = $this->db->query($sql);
-        $result = $query->result();
+    // function get_list($table='ci_board'){
+    //     $sql = "SELECT * FROM " . $table . " ORDER BY board_id ASC";
+    //     $query = $this->db->query($sql);
+    //     $result = $query->result();
 
-        return $result;
-    }
+    //     return $result;
+    // }
 
 
 
-    // function get_list($table='ci_board', $type='', $offset='', $limit='', $search_word='')
-    // {
-	// 	$sword= ' WHERE 1=1 ';
+    function get_list($table='ci_board', $type='', $offset='', $limit='')
+    {
+		// $sword= ' WHERE 1=1 ';
 
-	// 	if ( $search_word != '' )
+		// if ( $search_word != '' )
     //  	{
     //  		//검색어가 있을 경우의 처리
     //  		$sword = ' WHERE subject like "%'.$search_word.'%" or contents like "%'.$search_word.'%" ';
     //  	}
 
-    // 	$limit_query = '';
+    	$limit_query = '';
 
-    // 	if ( $limit != '' OR $offset != '' )
-    //  	{
-    //  		//페이징이 있을 경우의 처리
-    //  		$limit_query = ' LIMIT '.$offset.', '.$limit;
-    //  	}
+    	if ( $limit != '' OR $offset != '' )
+     	{
+     		//페이징이 있을 경우의 처리
+     		$limit_query = ' LIMIT '.$offset.', '.$limit;
+     	}
 
-    // 	$sql = "SELECT * FROM ".$table.$sword." AND board_pid = '0' ORDER BY board_id DESC".$limit_query;
-   	// 	$query = $this->db->query($sql);
+        // $sql = "SELECT * FROM ".$table.$sword." AND board_pid = '0' ORDER BY board_id DESC".$limit_query;
+    
+        $sql = "SELECT * FROM ".$table." ORDER BY board_id DESC".$limit_query;
+   		$query = $this->db->query($sql);
 
-	// 	if ( $type == 'count' )
-    //  	{
-    //  		//리스트를 반환하는 것이 아니라 전체 게시물의 갯수를 반환
-	//     	$result = $query->num_rows();
+		if ( $type == 'count' )
+     	{               
+     		//리스트를 반환하는 것이 아니라 전체 게시물의 갯수를 반환
+	    	$result = $query->num_rows();
 
-	//     	//$this->db->count_all($table);
-    //  	}
-    //  	else
-    //  	{
-    //  		//게시물 리스트 반환
-	//     	$result = $query->result();
-    //  	}
+	    	//$this->db->count_all($table);
+     	}
+     	else
+     	{
+     		//게시물 리스트 반환
+	    	$result = $query->result();
+     	}
 
-    // 	return $result;
-    // }
+    	return $result;
+    }
 
     /**
 	 * 게시물 상세보기 가져오기
