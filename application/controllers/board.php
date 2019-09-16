@@ -45,7 +45,6 @@ class Board extends CI_Controller {
 	 */
 	public function lists()
 	{
-		$this->output->enable_profiler(TRUE);
 		
 		$search_word = $page_url = '';
 		$uri_segment = 5;
@@ -100,7 +99,7 @@ class Board extends CI_Controller {
         // $data['list'] = $this->board_m->get_list($this->uri->segment(3), '', $start, $limit);
         // $data['list'] = $this->board_m->get_list($this->uri->segment(3, 'ci_board'), '', $start, $limit);
         // $data['list'] = $this->board_m->get_list('ci_board', '', $start, $limit);
-        $data['list'] = $this->board_m->get_list($this->uri->segment(3, 'ci_board'), '', $start, $limit, $search_word);
+		$data['list'] = $this->board_m->get_list($this->uri->segment(3, 'ci_board'), '', $start, $limit, $search_word);
 		$this->load->view('board/list_v', $data);
 	}
 
@@ -166,7 +165,7 @@ class Board extends CI_Controller {
 				if ( $result )
 				{
 					//글 작성 성공시 게시판 목록으로
-					alert('입력되었습니다.', '/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
+					alert('입력되었습니다. ', '/bbs/board/lists/'.$this->uri->segment(3).'/page/'.$pages);
 					exit;
 				}
 				else

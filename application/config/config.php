@@ -455,6 +455,11 @@ $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array();
 
+
+# login을 위한 db세션 config
+$config['sess_use_database'] = TRUE;
+$config['sess_table_name'] = 'ci_sessions';
+
 /*
 |--------------------------------------------------------------------------
 | Output Compression

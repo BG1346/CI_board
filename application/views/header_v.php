@@ -15,9 +15,7 @@
 <div id="main">
 
 	<header id="header" data-role="header" data-position="fixed"><!-- Header Start -->
-		<blockquote>
-			<p>만들면서 배우는 CodeIgniter</p>
-			<small>실행 예제</small>
+		<blockquote> <a href="/bbs" style="text-decoration : none; color : black; font-size : 2em">Home</a></blockquote>
 			<p>
 <?php
 if( @$this->session->userdata['logged_in'] == TRUE )
@@ -28,15 +26,15 @@ if( @$this->session->userdata['logged_in'] == TRUE )
 } else {
 ?>
 <a href="/bbs/auth/login" class="btn btn-primary">로그인</a>
+<a href="/bbs/auth/signup" class="btn btn-primary">회원가입</a>
 <?php
 }
 ?>
 		</p>
-		</blockquote>
 	</header><!-- Header End -->
 
 	<nav id="gnb"><!-- gnb Start -->
 		<ul>
-			<li><a rel="external" href="/bbs/<?php echo $this->uri->segment(1);?>/lists/<?php echo $this->uri->segment(3);?>">게시판 프로젝트</a></li>
+			<li><a rel="external" href="/bbs/<?php echo $this->uri->segment(1, 'board');?>/lists/<?php echo $this->uri->segment(3);?>">게시판 프로젝트</a></li>
 		</ul>
 	</nav><!-- gnb End -->
