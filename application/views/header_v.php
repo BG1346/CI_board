@@ -15,13 +15,16 @@
 <div id="main">
 
 	<header id="header" data-role="header" data-position="fixed"><!-- Header Start -->
-		<blockquote> <a href="/bbs" style="text-decoration : none; color : black; font-size : 2em">Home</a></blockquote>
+	<br>
+		<center> <a href="/bbs" style="text-decoration : none; color : black; font-size : 2em">Home</a></center>
 			<p>
 <?php
 if( @$this->session->userdata['logged_in'] == TRUE )
 {
+	$un = $un = openssl_decrypt($this->session->userdata['username'], 'AES-256-CBC', KEY_256, 0, KEY_128);
+	// $un = $this->session->userdata['username'];
 ?>
-<?php echo $this->session->userdata['username']?>님 환영합니다. <a href="/bbs/auth/logout" class="btn">로그아웃</a>
+<?php echo $un ?>님 환영합니다. <a href="/bbs/auth/logout" class="btn">로그아웃</a>
 <?php
 } else {
 ?>

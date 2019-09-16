@@ -16,7 +16,8 @@ echo form_open('/auth/login', $attributes);
 		      </div>
 		      <label class="control-label" for="input02">비밀번호</label>
 		      <div class="controls">
-		        <input type="password" class="input-xlarge" id="input02" name="password" value="<?php echo set_value('password'); ?>">
+			  <input type="password" class="input-xlarge" id="input02" name="password" value="<?php echo set_value('password'); ?>">
+			  <!-- <input type="password" class="input-xlarge" id="input02" name="password"> -->
 		        <p class="help-block"></p>
 		      </div>
 

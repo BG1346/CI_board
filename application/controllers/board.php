@@ -12,6 +12,17 @@ class Board extends CI_Controller {
 		$this->load->database();
         $this->load->model('board_m');
 		// $this->load->helper('form');
+		$this->load->library('encryption');
+		$this->encryption->initialize(
+			array(
+				'cipher'=> 'aes-256',
+				'mode' => 'ctr',
+				'key' => ''
+			)
+		);
+		define('KEY', '21409512408764867149294859283728347923');
+		define('KEY_128', substr(KEY, 0, 128/8));
+		define('KEY_256', substr(KEY, 0, 256/8));
 	}
 
 	/**
@@ -294,7 +305,7 @@ class Board extends CI_Controller {
 
 			$writer_id = $this->board_m->writer_check($table, $board_id);
 
-			if( $writer_id->user_id != $this->session->userdata('username') )
+			if( $writer_id->user_id != openssl_decrypt($this->session->userdata('username'), 'AES-256-CBC', KEY_256, 0, KEY_128))
 			{
 				alert('본인이 작성한 글이 아닙니다.', '/bbs/board/view/'.$this->uri->segment(3).'/board_id/'.$this->uri->segment(5).'/page/'.$this->uri->segment(7));
 				exit;

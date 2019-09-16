@@ -57,7 +57,7 @@ foreach ($list as $lt)
 		<div>
 		
 			<form id="bd_search" method="post" class="well form-search">
-			<h1>검색기능</h1><br>
+			<h1>게시글 검색</h1><br>
 				<i class="icon-search"></i> <input type="text" name="search_word" id="q" onkeypress="board_search_enter(document.q);" class="input-medium search-query" /> <input type="button" value="검색" id="search_btn" class="btn btn-primary" />
 			</form>
 		</div>
