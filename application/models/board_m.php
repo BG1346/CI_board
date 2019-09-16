@@ -35,15 +35,15 @@ class Board_m extends CI_Model
 
 
 
-    function get_list($table='ci_board', $type='', $offset='', $limit='')
+    function get_list($table='ci_board', $type='', $offset='', $limit='', $search_word)
     {
-		// $sword= ' WHERE 1=1 ';
+		$sword= '';
 
-		// if ( $search_word != '' )
-    //  	{
-    //  		//검색어가 있을 경우의 처리
-    //  		$sword = ' WHERE subject like "%'.$search_word.'%" or contents like "%'.$search_word.'%" ';
-    //  	}
+		if ( $search_word != '' )
+     	{
+     		//검색어가 있을 경우의 처리
+     		$sword = ' WHERE subject like "%'.$search_word.'%" or contents like "%'.$search_word.'%" ';
+     	}
 
     	$limit_query = '';
 
@@ -55,7 +55,7 @@ class Board_m extends CI_Model
 
         // $sql = "SELECT * FROM ".$table.$sword." AND board_pid = '0' ORDER BY board_id DESC".$limit_query;
     
-        $sql = "SELECT * FROM ".$table." ORDER BY board_id DESC".$limit_query;
+        $sql = "SELECT * FROM ".$table.$sword." ORDER BY board_id DESC".$limit_query;
    		$query = $this->db->query($sql);
 
 		if ( $type == 'count' )
@@ -82,44 +82,44 @@ class Board_m extends CI_Model
 	 * @param string $id 게시물번호
 	 * @return array
 	 */
-    // function get_view($table, $id)
-    // {
-    // 	//조회수 증가
-    // 	$sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE board_id='".$id."'";
-   	// 	$this->db->query($sql0);
+    function get_view($table, $id)
+    {
+    	//조회수 증가
+    	$sql0 = "UPDATE ".$table." SET hits=hits+1 WHERE board_id='".$id."'";
+   		$this->db->query($sql0);
 
-    // 	$sql = "SELECT * FROM ".$table." WHERE board_id='".$id."'";
-   	// 	$query = $this->db->query($sql);
+    	$sql = "SELECT * FROM ".$table." WHERE board_id='".$id."'";
+   		$query = $this->db->query($sql);
 
-    //  	//게시물 내용 반환
-	//     $result = $query->row();
+     	//게시물 내용 반환
+	    $result = $query->row();
 
-    // 	return $result;
-    // }
+    	return $result;
+    }
 
-	// /**
-	//  * 게시물 입력
-	//  *
-	//  * @author Jongwon Byun <advisor@cikorea.net>
-	//  * @param array $arrays 테이블명, 게시물제목, 게시물내용, 아이디 1차 배열
-	//  * @return boolean 입력 성공여부
-	//  */
-	// function insert_board($arrays)
- 	// {
-	// 	$insert_array = array(
-	// 		'board_pid' => 0, //원글이라 0을 입력, 댓글일 경우 원글번호 입력
-	// 		'user_id' => $arrays['user_id'],
-	// 		'user_name' => $arrays['user_id'],
-	// 		'subject' => $arrays['subject'],
-	// 		'contents' => $arrays['contents'],
-	// 		'reg_date' => date("Y-m-d H:i:s")
-	// 	);
+	/**
+	 * 게시물 입력
+	 *
+	 * @author Jongwon Byun <advisor@cikorea.net>
+	 * @param array $arrays 테이블명, 게시물제목, 게시물내용, 아이디 1차 배열
+	 * @return boolean 입력 성공여부
+	 */
+	function insert_board($arrays)
+ 	{
+		$insert_array = array(
+			'board_pid' => 0, //원글이라 0을 입력, 댓글일 경우 원글번호 입력
+			'user_id' => $arrays['user_id'],
+			'user_name' => $arrays['user_id'],
+			'subject' => $arrays['subject'],
+			'contents' => $arrays['contents'],
+			'reg_date' => date("Y-m-d H:i:s")
+		);
 
-	// 	$result = $this->db->insert($arrays['table'], $insert_array);
+		$result = $this->db->insert($arrays['table'], $insert_array);
 
-	// 	//결과 반환
-	// 	return $result;
- 	// }
+		//결과 반환
+		return $result;
+ 	}
 
 	/**
 	 * 게시물 수정
@@ -189,24 +189,24 @@ class Board_m extends CI_Model
 	 * @param array $arrays 테이블명, 게시물제목, 게시물내용, 아이디 1차 배열
 	 * @return boolean 입력 성공여부
 	 */
-	// function insert_comment($arrays)
- 	// {
-	// 	$insert_array = array(
-	// 		'board_pid' => $arrays['board_pid'], //원글번호 입력
-	// 		'user_id' => $arrays['user_id'],
-	// 		'user_name' => $arrays['user_id'],
-	// 		'subject' => $arrays['subject'],
-	// 		'contents' => $arrays['contents'],
-	// 		'reg_date' => date("Y-m-d H:i:s")
-	// 	);
+	function insert_comment($arrays)
+ 	{
+		$insert_array = array(
+			'board_pid' => $arrays['board_pid'], //원글번호 입력
+			'user_id' => $arrays['user_id'],
+			'user_name' => $arrays['user_id'],
+			'subject' => $arrays['subject'],
+			'contents' => $arrays['contents'],
+			'reg_date' => date("Y-m-d H:i:s")
+		);
 
-	// 	$this->db->insert($arrays['table'], $insert_array);
+		$this->db->insert($arrays['table'], $insert_array);
 
-	// 	$board_id = $this->db->insert_id();
+		$board_id = $this->db->insert_id();
 
-	// 	//결과 반환
-	// 	return $board_id;
- 	// }
+		//결과 반환
+		return $board_id;
+ 	}
 
 	/**
 	 * 댓글 리스트 가져오기
@@ -216,16 +216,16 @@ class Board_m extends CI_Model
 	 * @param string $id 게시물번호
 	 * @return array
 	 */
-    // function get_comment($table, $id)
-    // {
-    // 	$sql = "SELECT * FROM ".$table." WHERE board_pid='".$id."' ORDER BY board_id DESC";
-   	// 	$query = $this->db->query($sql);
+    function get_comment($table, $id)
+    {
+    	$sql = "SELECT * FROM ".$table." WHERE board_pid='".$id."' ORDER BY board_id DESC";
+   		$query = $this->db->query($sql);
 
-    //  	//댓글 리스트 반환
-	//     $result = $query->result();
+     	//댓글 리스트 반환
+	    $result = $query->result();
 
-    // 	return $result;
-    // }
+    	return $result;
+    }
 }
 
 /* End of file board_m.php */
